@@ -28,3 +28,7 @@ jobs:
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
         run: ./gradlew modrinth
+      - name: Hangar
+        env:
+          HANGAR_API_KEY: ${{ secrets.HANGAR_API_KEY }}
+        run: ./gradlew publishPluginPublicationToHangar

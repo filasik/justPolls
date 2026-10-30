@@ -3,6 +3,7 @@ plugins {
     id("com.modrinth.minotaur") version "2.+"
     id("com.gradleup.shadow") version "9.6.1"
     id("xyz.jpenilla.run-paper") version "3.1.0"
+    id("io.papermc.hangar-publish-plugin") version "0.1.4"
 }
 
 group = "me.skerik"
@@ -102,4 +103,21 @@ modrinth {
     loaders.addAll("paper", "purpur", "folia")
     changelog = providers.fileContents(layout.projectDirectory.file("CHANGELOG.md")).asText
     syncBodyFrom = providers.fileContents(layout.projectDirectory.file("docs/modrinth.md")).asText
+}
+
+// Hangar: ./gradlew publishPluginPublicationToHangar (CI sets HANGAR_API_KEY; the project must already exist)
+hangarPublish {
+    publications.register("plugin") {
+        id = project.property("hangarSlug") as String
+        version = project.version as String
+        channel = "Release"
+        changelog = providers.fileContents(layout.projectDirectory.file("CHANGELOG.md")).asText
+        apiKey = System.getenv("HANGAR_API_KEY")
+        platforms {
+            register(io.papermc.hangarpublishplugin.model.Platforms.PAPER) {
+                jar = tasks.shadowJar.flatMap { it.archiveFile }
+                platformVersions = listOf(project.property("minecraftVersion") as String)
+            }
+        }
+    }
 }
