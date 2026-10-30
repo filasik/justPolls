@@ -1,4 +1,4 @@
-## Unreleased
+## 1.0.1
 - Fix: clickable chat links ([click to vote], [vote], [results]) ran the literal text `/<label> vote <id>`; the "new version" link had the same problem
 
 ## 1.0.0
