@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" width="1200" height="300">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f59e0b"/>
+      <stop offset="1" stop-color="#e11d48"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="300" fill="url(#g)"/>
+  <!-- poll bars -->
+  <g transform="translate(70 62)">
+    <rect x="0" y="0" width="230" height="46" rx="14" fill="#ffffff"/>
+    <rect x="0" y="63" width="150" height="46" rx="14" fill="#ffffff" fill-opacity="0.72"/>
+    <rect x="0" y="126" width="88" height="46" rx="14" fill="#ffffff" fill-opacity="0.5"/>
+    <circle cx="188" cy="23" r="18" fill="#e11d48"/>
+    <path d="M178 23 l7 8 l13 -16" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="360" y="150" font-family="Helvetica, Arial, sans-serif" font-size="98" font-weight="800" fill="#ffffff">JustPolls</text>
+  <text x="364" y="204" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="#ffffff" fill-opacity="0.92">Timed polls · click-to-vote menu · Discord results</text>
+  <text x="1140" y="270" font-family="Helvetica, Arial, sans-serif" font-size="22" text-anchor="end" fill="#ffffff" fill-opacity="0.8">skerik.me</text>
+</svg>

@@ -1,0 +1,31 @@
+name: ${name}
+version: '${version}'
+main: ${main}
+loader: ${loader}
+description: '${description}'
+website: ${website}
+authors: [filasik]
+api-version: '${apiVersion}'
+# Everything goes through the Scheduler abstraction (global / entity / async), so Folia works.
+# Set to false if you add code that touches worlds or other entities from the wrong thread.
+folia-supported: true
+# Soft / hard dependencies (example: an economy through Vault):
+# dependencies:
+#   server:
+#     Vault:
+#       load: BEFORE
+#       required: true
+#       join-classpath: true
+permissions:
+  justpolls.use:
+    description: Use the base command and see polls
+    default: true
+  justpolls.vote:
+    description: Vote in polls
+    default: true
+  justpolls.create:
+    description: Create polls (menu and /justpolls quick)
+    default: op
+  justpolls.admin:
+    description: Manage every poll, reload the configuration, update notifications
+    default: op

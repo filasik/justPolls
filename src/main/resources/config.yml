@@ -1,0 +1,142 @@
+# ============================================================================
+#  JustPolls configuration
+#  Reload most values with /justpolls reload. Storage and command aliases need a restart.
+#  Support: https://github.com/filasik/justPolls
+# ============================================================================
+
+# Config format version. Do not change: when you update the plugin, options that are new in the
+# newer version are added to this file automatically (your values stay, a backup is saved first).
+# (Developer: raise this number whenever you add a key, and add the key with its comment here.)
+config-version: 1
+
+# Language of all player-facing messages: en, cs.
+# The files plugins/JustPolls/messages_<locale>.yml are yours to edit; missing keys fall back to the built-in text.
+locale: en
+
+# Check GitHub releases for a newer version (async, once at startup and then every 12 hours).
+# Players with justpolls.admin are told when they join.
+update-check: true
+
+command:
+  # Extra aliases for /justpolls. Restart required. Remove an alias if another plugin already owns it.
+  aliases:
+    - poll
+    - polls
+
+# Anonymous usage statistics through bStats (server count, Minecraft version, ...).
+# Set to false to switch them off for this plugin. The global switch is plugins/bStats/config.yml.
+metrics: true
+
+# Durations everywhere in this file: 30s, 10m, 1h, 1d12h, 7d, 2w (a bare number means minutes).
+
+voting:
+  # false = a player votes once and the vote is final. true = a player may move their vote to another option
+  # while the poll runs (still only one vote per player).
+  allow-change: false
+  # When players see the numbers:
+  #   after-vote = right after they voted (and always once the poll has ended)
+  #   live       = whenever they open the poll
+  #   after-end  = only when the poll is over
+  show-results: after-vote
+  # Console commands run when a player casts a vote (not when changing it). %player% is the player name.
+  # Rewards for taking part are fine; never sell votes or advantages for money (Minecraft EULA). Example:
+  # reward-commands:
+  #   - "give %player% minecraft:diamond 1"
+  reward-commands: []
+
+creation:
+  # Limits for polls created by staff (menu, /justpolls quick) and from this file.
+  min-duration: 1m
+  max-duration: 30d
+  # How many answers a poll may have (2-10). The creation menu shows this many option fields.
+  max-options: 6
+  # How many polls may run or be scheduled at the same time (1-100; polls from the "polls" section below are exempt).
+  max-active-polls: 5
+  # Choices offered in the creation menu ("Custom..." is always added).
+  duration-presets: [10m, 30m, 1h, 6h, 1d, 3d, 7d]
+  default-duration: 1h
+
+auto-open:
+  # Open the voting menu by itself for players who have not voted yet.
+  # Players can turn this off for themselves with /justpolls autoopen off.
+  enabled: true
+  # Delay after a poll starts before the menu pops up for the players who are online (0 = immediately).
+  # A single poll can override this (open-delay in the polls section below).
+  on-start-delay: 5s
+  # Delay after a player joins before the menu pops up if a poll is waiting for their vote (0 = never on join).
+  on-join-delay: 15s
+  # Show the menu again this often to players who still have not voted (0 = no reminders).
+  reminder-interval: 0
+  # The menu opens at most this many times per player and poll (start + join + reminders together).
+  max-opens: 3
+
+announce:
+  # Chat message with a clickable [vote] button when a poll starts, and a summary when it ends.
+  chat: true
+  # Sound for the announcement, a Minecraft sound key, empty = silent.
+  sound: block.note_block.pling
+
+discord:
+  # Send the results (totals and percentages, never who voted) to a Discord channel when a poll ends.
+  # Create the webhook in Discord: Channel settings > Integrations > Webhooks > New Webhook > Copy URL.
+  enabled: false
+  webhook-url: ""
+  # Name and picture of the message author (optional; the avatar must be a public image URL).
+  username: JustPolls
+  avatar-url: ""
+  # Numeric id of a role to ping with the results (optional; Discord: enable developer mode, right-click role, Copy ID).
+  mention-role-id: ""
+  # Colour of the embed.
+  color: "#5865F2"
+  # Also post a message when a poll starts.
+  announce-start: false
+  # Length of the bars in the results message (5-30).
+  bar-width: 20
+  # Default of the "send to Discord" switch for new polls.
+  send-by-default: true
+  # Shown in the footer of the messages, e.g. the name of your server (optional).
+  server-name: ""
+
+# Polls defined in this file. They are created once (when the server starts or after /justpolls reload) and run
+# like any other poll; you can still manage them in the menu. Remove an entry or set enabled: false to stop it
+# from being created again. Example:
+#
+# polls:
+#   weekly-event:
+#     enabled: true
+#     title: "Which event should we run this weekend?"
+#     description: "Pick one, the most voted event wins."     # optional
+#     options: ["Build battle", "Parkour race", "PvP arena"]   # 2-10 entries
+#     duration: 3d
+#     start: "2026-12-24 18:00"    # optional, server time; without it the poll starts at once
+#     repeat: 7d                   # optional, a new identical poll starts this long after the previous one started
+#     discord: true                # optional, default is discord.send-by-default
+#     auto-open: true              # optional, open the menu automatically
+#     open-delay: 30s              # optional, overrides auto-open.on-start-delay for this poll
+#     permission: "group.vip"      # optional, only players with it can see and vote
+polls: {}
+
+storage:
+  # sqlite  = single file in the plugin folder, zero setup (default)
+  # mariadb = MariaDB or MySQL server (use this to share data between servers)
+  type: sqlite
+  sqlite:
+    file: justpolls.db
+    # Concurrent database connections (writes are serialized by SQLite anyway)
+    pool-size: 3
+  mariadb:
+    host: localhost
+    port: 3306
+    database: justpolls
+    user: justpolls
+    password: change-me
+    pool-size: 6
+    # TLS mode of the connection. Leave empty for the driver default.
+    # MySQL 8+ with a self-signed certificate (the default install) fails with
+    # "Cannot use authentication plugin caching_sha2_password with a Self signed certificates":
+    # use "trust" (encrypted, certificate not verified), or "disable" on a trusted local network.
+    # Other values: verify-ca, verify-full (need a proper certificate).
+    ssl-mode: ""
+  # How often (seconds) running polls are re-read from the database. Only matters when several servers share one
+  # MariaDB database; it is how a server notices votes and changes made on the other one (5-3600).
+  sync-interval-seconds: 30

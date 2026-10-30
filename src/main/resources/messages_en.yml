@@ -1,0 +1,200 @@
+# JustPolls messages (MiniMessage). Missing keys fall back to the built-in English text.
+# Placeholders in <angle brackets> are filled in by the plugin; keep them. Texts under "webhook" are plain text
+# for Discord (Markdown, placeholders in {curly braces}).
+prefix: '<dark_gray>[<gold>JustPolls<dark_gray>]<reset>'
+
+error:
+  not-ready: '<prefix> <red>JustPolls is still starting up. Try again in a moment.'
+  players-only: '<prefix> <red>This command can only be used by players.'
+  no-permission: '<prefix> <red>You do not have permission to do that.'
+  generic: '<prefix> <red>Something went wrong. Please try again or tell an admin.'
+  unknown-poll: '<prefix> <red>There is no poll with id <white><id></white>.'
+  not-open: '<prefix> <red>Poll <white>#<id></white> is not running (any more).'
+  bad-duration: '<prefix> <red>Invalid duration. Use for example <white>10m</white>, <white>1h</white>, <white>1d12h</white> or <white>7d</white>.'
+  no-target: '<prefix> <red>No such online player.'
+
+command:
+  info:
+    - '<prefix> <gray>JustPolls v<version>'
+    - '<gray> · <white>/<label></white> <dark_gray>- <gray>vote in a running poll'
+    - '<gray> · <white>/<label> list</white> <dark_gray>- <gray>running polls'
+    - '<gray> · <white>/<label> history</white> <dark_gray>- <gray>finished polls and their results'
+    - '<gray> · <white>/<label> autoopen [on|off]</white> <dark_gray>- <gray>automatic opening of the voting menu'
+  info-admin:
+    - '<gray> · <white>/<label> create</white> <dark_gray>- <gray>create a poll in a menu'
+    - '<gray> · <white>/<label> quick <duration> <question> | <option> | <option></white>'
+    - '<gray> · <white>/<label> manage</white> <dark_gray>- <gray>manage polls in a menu'
+    - '<gray> · <white>/<label> end|cancel|delete|extend|open|webhook <id></white>'
+    - '<gray> · <white>/<label> webhook-test</white>, <white>/<label> reload</white>'
+  reloaded: '<prefix> <green>Configuration and messages reloaded. Storage settings and aliases need a restart.'
+  quick-usage: '<prefix> <red>Usage: <white>/<label> quick <duration> <question> | <option> | <option> ...</white> <gray>(for example <white>/<label> quick 1h Best season? | Summer | Winter</white>)'
+
+poll:
+  none-active: '<prefix> <yellow>There is no poll running right now.'
+  list-header: '<prefix> <gold>Running polls:'
+  list-line: '<gray> · <white>#<id> <yellow><title></yellow> <dark_gray>- <gray>ends in <time> <click:run_command:''/<label> vote <id>''><aqua>[vote]</aqua></click>'
+  list-line-voted: '<gray> · <white>#<id> <yellow><title></yellow> <dark_gray>- <gray>ends in <time> <green>(you voted)</green> <click:run_command:''/<label> results <id>''><aqua>[results]</aqua></click>'
+  list-scheduled: '<gray> · <white>#<id> <yellow><title></yellow> <dark_gray>- <gray>starts in <time>'
+  history-header: '<prefix> <gold>Latest polls:'
+  history-line: '<gray> · <white>#<id> <yellow><title></yellow> <dark_gray>- <status> <click:run_command:''/<label> results <id>''><aqua>[results]</aqua></click>'
+  history-empty: '<prefix> <yellow>No polls yet.'
+  results-header: '<prefix> <gold><title> <gray>(<status>, <total> votes)'
+  results-line: '<gray> · <white><option> <dark_gray>- <yellow><percent> %</yellow> <gray>(<count>)'
+  results-line-winner: '<gray> · <gold>★ <white><option> <dark_gray>- <yellow><percent> %</yellow> <gray>(<count>)'
+  results-hidden: '<prefix> <yellow>The results of this poll are shown after it ends.'
+  status:
+    scheduled: '<aqua>scheduled'
+    active: '<green>running'
+    ended: '<gray>ended'
+    cancelled: '<red>cancelled'
+
+announce:
+  started:
+    - ''
+    - '<prefix> <gold><bold>New poll!</bold> <yellow><title>'
+    - '<gray>Ends in <white><time></white> <dark_gray>- <click:run_command:''/<label> vote <id>''><hover:show_text:''<gray>Open the voting menu''><aqua><bold>[click to vote]</bold></aqua></hover></click>'
+    - ''
+  ended:
+    - ''
+    - '<prefix> <gold><bold>Poll ended:</bold> <yellow><title>'
+  ended-winner: '<gray>Winner: <gold><winner></gold> <dark_gray>(<percent> %, <count> votes)'
+  ended-tie: '<gray>Tie: <gold><winners></gold> <dark_gray>(<count> votes each)'
+  ended-nobody: '<gray>Nobody voted.'
+  ended-line: '<gray> · <white><option> <dark_gray>- <yellow><percent> %</yellow> <gray>(<count>)'
+  ended-end: ''
+
+vote:
+  success: '<prefix> <green>Thanks! Your vote for <white><option></white> was recorded.'
+  changed: '<prefix> <green>Your vote was changed to <white><option></white>.'
+  already: '<prefix> <yellow>You have already voted in this poll.'
+  closed: '<prefix> <red>This poll has already ended.'
+  no-permission: '<prefix> <red>You are not allowed to vote in this poll.'
+
+create:
+  success: '<prefix> <green>Poll <white>#<id></white> <yellow><title></yellow> created. It ends in <white><time></white>.'
+  scheduled: '<prefix> <green>Poll <white>#<id></white> <yellow><title></yellow> scheduled. It starts in <white><time></white>.'
+  limit: '<prefix> <red>There are already <white><max></white> polls running or scheduled. End one first.'
+  title-required: 'Enter a title.'
+  title-too-long: 'The title can have at most <max> characters.'
+  description-too-long: 'The description can have at most <max> characters.'
+  options-needed: 'Fill in at least two different options.'
+  option-too-long: 'An option can have at most <max> characters.'
+  options-duplicate: 'Options must be different from each other.'
+  duration-invalid: 'The custom duration is invalid. Use for example 10m, 1h, 2d or 1w.'
+  duration-short: 'The duration must be at least <min>.'
+  duration-long: 'The duration can be at most <max>.'
+
+manage:
+  ended: '<prefix> <green>Poll <white>#<id></white> ended.'
+  cancelled: '<prefix> <green>Poll <white>#<id></white> cancelled. No results are published.'
+  deleted: '<prefix> <green>Poll <white>#<id></white> deleted together with its votes.'
+  extended: '<prefix> <green>Poll <white>#<id></white> now ends in <white><time></white>.'
+  extend-failed: '<prefix> <red>Cannot change the end of poll <white>#<id></white>.'
+  opened: '<prefix> <green>Opened the voting menu for <white><count></white> player(s).'
+  webhook-queued: '<prefix> <green>The results of poll <white>#<id></white> are being sent to Discord.'
+  webhook-off: '<prefix> <red>Discord is switched off or the webhook URL is invalid (see config.yml, section discord).'
+  webhook-not-ended: '<prefix> <red>Only finished polls can be sent to Discord.'
+  webhook-test-ok: '<prefix> <green>Test message delivered to Discord.'
+  webhook-test-fail: '<prefix> <red>Discord did not accept the test message. Details are in the server console.'
+  webhook-sent: '<prefix> <green>Results of poll <white>#<id></white> delivered to Discord.'
+  webhook-failed: '<prefix> <red>Could not deliver the results of poll <white>#<id></white> to Discord (details in the console). Retry with <white>/<label> webhook <id></white>.'
+
+autoopen:
+  enabled: '<prefix> <green>The voting menu will open automatically when there is a poll for you.'
+  disabled: '<prefix> <yellow>The voting menu will no longer open by itself. Use <white>/<label></white> to vote.'
+
+gui:
+  close: '<gray>Close'
+  back: '<gray>Back'
+  vote:
+    ends: '<gray>Ends in <white><time></white>'
+    you-voted: '<green>You voted for: <white><option></white>'
+    can-change: '<gray>You can still change your vote.'
+    results-hidden: '<gray>The results will be shown after the poll ends.'
+    option: '<white><option>'
+    option-current: '<green>✔ <white><option>'
+    option-tooltip: '<gray>Vote for <white><option></white>'
+    thanks: '<green>Thanks for voting!'
+    ended: '<gray>This poll has ended.'
+  list:
+    title: '<gold>Polls'
+    body: '<gray>Choose a poll to vote in.'
+    entry: '<white><title> <gray>(<time> left)'
+    entry-voted: '<green>✔ <white><title> <gray>(<time> left)'
+    manage: '<aqua>Manage polls'
+  results:
+    title: '<gold>Results'
+    total: '<gray>Total votes: <white><total>'
+    live: '<gray>Poll is still running, results so far.'
+    final: '<gray>Final result.'
+  history:
+    title: '<gold>Latest polls'
+    entry: '<white><title> <gray>(<status><gray>)'
+  create:
+    title: '<gold>New poll'
+    field-title: '<white>Question'
+    field-description: '<gray>Description (optional)'
+    field-option: '<white>Option <n>'
+    field-option-required: '<white>Option <n> <red>*'
+    field-duration: '<white>How long should it run?'
+    field-custom-duration: '<gray>Custom duration (used only when "Custom" is chosen above)'
+    custom: 'Custom...'
+    field-discord: '<white>Send the results to Discord'
+    field-auto-open: '<white>Open the menu automatically for players'
+    submit: '<green>Create poll'
+    cancel: '<gray>Cancel'
+    error: '<red>⚠ <error>'
+    hint: '<gray>Fields marked <red>*</red> are required. Each player can vote once.'
+  manage:
+    title: '<gold>Manage polls'
+    new: '<green>+ New poll'
+    empty: '<gray>There are no running or scheduled polls.'
+    entry: '<white>#<id> <title> <gray>(<status><gray>, <time>)'
+    history: '<gray>Finished polls'
+  admin:
+    title: '<gold>Poll #<id>'
+    info:
+      - '<yellow><title>'
+      - '<gray>Status: <status>'
+      - '<gray>Created by: <white><creator>'
+      - '<gray>Time: <white><time>'
+      - '<gray>Votes cast: <white><total>'
+      - '<gray>Discord: <white><discord>  <gray>Auto-open: <white><auto>'
+    value-yes: 'yes'
+    value-no: 'no'
+    time-active: 'ends in <left>'
+    time-scheduled: 'starts in <left>'
+    time-ended: 'finished'
+    results: '<aqua>Results'
+    end: '<red>End now'
+    cancel: '<red>Cancel (no results)'
+    delete: '<dark_red>Delete with votes'
+    extend: '<white>+<time>'
+    shorten: '<white>-<time>'
+    open-all: '<aqua>Open menu for all players'
+    webhook: '<blue>Send to Discord'
+  confirm:
+    title: '<red>Are you sure?'
+    end: '<gray>End poll <white>#<id> <title></white> now and publish the results?'
+    cancel: '<gray>Cancel poll <white>#<id> <title></white>? Votes are kept but no results are published.'
+    delete: '<gray>Delete poll <white>#<id> <title></white> and all its votes? This cannot be undone.'
+    accept: '<green>Yes'
+    decline: '<gray>No, go back'
+
+update:
+  available: '<prefix> <yellow>A new version is available: <white><version></white> <click:open_url:''<url>''><aqua>[download]</aqua></click>'
+
+webhook:
+  total: 'Total votes'
+  winner: 'Winner'
+  duration: 'Duration'
+  tie: 'Tie: {options}'
+  no-votes: 'Nobody voted'
+  votes-one: '{n} vote'
+  votes-few: '{n} votes'
+  votes-many: '{n} votes'
+  poll-id: 'Poll #{id}'
+  started: 'New poll: {title}'
+  options: 'Options'
+  ends: 'Ends'
+  test: 'The webhook works. Poll results will appear here.'

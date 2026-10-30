@@ -1,0 +1,200 @@
+# Zprávy JustPolls (MiniMessage). Chybějící klíče se doplní z vestavěné angličtiny.
+# Zástupné znaky v <ostrých závorkách> plugin vyplní, ponechte je. Texty v sekci "webhook" jsou prostý text
+# pro Discord (Markdown, zástupné znaky ve {složených závorkách}).
+prefix: '<dark_gray>[<gold>JustPolls<dark_gray>]<reset>'
+
+error:
+  not-ready: '<prefix> <red>JustPolls se ještě spouští. Zkus to za chvíli.'
+  players-only: '<prefix> <red>Tento příkaz mohou použít jen hráči.'
+  no-permission: '<prefix> <red>Na to nemáš oprávnění.'
+  generic: '<prefix> <red>Něco se pokazilo. Zkus to znovu nebo dej vědět adminovi.'
+  unknown-poll: '<prefix> <red>Hlasování s ID <white><id></white> neexistuje.'
+  not-open: '<prefix> <red>Hlasování <white>#<id></white> už neběží.'
+  bad-duration: '<prefix> <red>Neplatná doba. Použij například <white>10m</white>, <white>1h</white>, <white>1d12h</white> nebo <white>7d</white>.'
+  no-target: '<prefix> <red>Takový hráč není online.'
+
+command:
+  info:
+    - '<prefix> <gray>JustPolls v<version>'
+    - '<gray> · <white>/<label></white> <dark_gray>- <gray>hlasovat v probíhající anketě'
+    - '<gray> · <white>/<label> list</white> <dark_gray>- <gray>probíhající hlasování'
+    - '<gray> · <white>/<label> history</white> <dark_gray>- <gray>skončená hlasování a jejich výsledky'
+    - '<gray> · <white>/<label> autoopen [on|off]</white> <dark_gray>- <gray>automatické otevírání hlasovacího menu'
+  info-admin:
+    - '<gray> · <white>/<label> create</white> <dark_gray>- <gray>vytvořit hlasování v menu'
+    - '<gray> · <white>/<label> quick <doba> <otázka> | <možnost> | <možnost></white>'
+    - '<gray> · <white>/<label> manage</white> <dark_gray>- <gray>správa hlasování v menu'
+    - '<gray> · <white>/<label> end|cancel|delete|extend|open|webhook <id></white>'
+    - '<gray> · <white>/<label> webhook-test</white>, <white>/<label> reload</white>'
+  reloaded: '<prefix> <green>Konfigurace a zprávy načteny znovu. Nastavení úložiště a aliasy vyžadují restart.'
+  quick-usage: '<prefix> <red>Použití: <white>/<label> quick <doba> <otázka> | <možnost> | <možnost> ...</white> <gray>(například <white>/<label> quick 1h Nejlepší roční období? | Léto | Zima</white>)'
+
+poll:
+  none-active: '<prefix> <yellow>Právě neběží žádné hlasování.'
+  list-header: '<prefix> <gold>Probíhající hlasování:'
+  list-line: '<gray> · <white>#<id> <yellow><title></yellow> <dark_gray>- <gray>končí za <time> <click:run_command:''/<label> vote <id>''><aqua>[hlasovat]</aqua></click>'
+  list-line-voted: '<gray> · <white>#<id> <yellow><title></yellow> <dark_gray>- <gray>končí za <time> <green>(už jsi hlasoval)</green> <click:run_command:''/<label> results <id>''><aqua>[výsledky]</aqua></click>'
+  list-scheduled: '<gray> · <white>#<id> <yellow><title></yellow> <dark_gray>- <gray>začíná za <time>'
+  history-header: '<prefix> <gold>Poslední hlasování:'
+  history-line: '<gray> · <white>#<id> <yellow><title></yellow> <dark_gray>- <status> <click:run_command:''/<label> results <id>''><aqua>[výsledky]</aqua></click>'
+  history-empty: '<prefix> <yellow>Zatím žádná hlasování.'
+  results-header: '<prefix> <gold><title> <gray>(<status>, hlasů: <total>)'
+  results-line: '<gray> · <white><option> <dark_gray>- <yellow><percent> %</yellow> <gray>(<count>)'
+  results-line-winner: '<gray> · <gold>★ <white><option> <dark_gray>- <yellow><percent> %</yellow> <gray>(<count>)'
+  results-hidden: '<prefix> <yellow>Výsledky tohoto hlasování se zobrazí po jeho skončení.'
+  status:
+    scheduled: '<aqua>naplánováno'
+    active: '<green>probíhá'
+    ended: '<gray>skončilo'
+    cancelled: '<red>zrušeno'
+
+announce:
+  started:
+    - ''
+    - '<prefix> <gold><bold>Nové hlasování!</bold> <yellow><title>'
+    - '<gray>Končí za <white><time></white> <dark_gray>- <click:run_command:''/<label> vote <id>''><hover:show_text:''<gray>Otevřít hlasovací menu''><aqua><bold>[klikni a hlasuj]</bold></aqua></hover></click>'
+    - ''
+  ended:
+    - ''
+    - '<prefix> <gold><bold>Hlasování skončilo:</bold> <yellow><title>'
+  ended-winner: '<gray>Vítěz: <gold><winner></gold> <dark_gray>(<percent> %, hlasů: <count>)'
+  ended-tie: '<gray>Remíza: <gold><winners></gold> <dark_gray>(každá hlasů: <count>)'
+  ended-nobody: '<gray>Nikdo nehlasoval.'
+  ended-line: '<gray> · <white><option> <dark_gray>- <yellow><percent> %</yellow> <gray>(<count>)'
+  ended-end: ''
+
+vote:
+  success: '<prefix> <green>Díky! Tvůj hlas pro <white><option></white> byl zaznamenán.'
+  changed: '<prefix> <green>Tvůj hlas byl změněn na <white><option></white>.'
+  already: '<prefix> <yellow>V tomto hlasování jsi už hlasoval.'
+  closed: '<prefix> <red>Toto hlasování už skončilo.'
+  no-permission: '<prefix> <red>V tomto hlasování nemůžeš hlasovat.'
+
+create:
+  success: '<prefix> <green>Hlasování <white>#<id></white> <yellow><title></yellow> vytvořeno. Končí za <white><time></white>.'
+  scheduled: '<prefix> <green>Hlasování <white>#<id></white> <yellow><title></yellow> naplánováno. Začne za <white><time></white>.'
+  limit: '<prefix> <red>Už běží nebo je naplánováno <white><max></white> hlasování. Nejdřív některé ukonči.'
+  title-required: 'Zadej název.'
+  title-too-long: 'Název může mít nejvýše <max> znaků.'
+  description-too-long: 'Popis může mít nejvýše <max> znaků.'
+  options-needed: 'Vyplň alespoň dvě různé možnosti.'
+  option-too-long: 'Možnost může mít nejvýše <max> znaků.'
+  options-duplicate: 'Možnosti se musí lišit.'
+  duration-invalid: 'Vlastní doba je neplatná. Použij například 10m, 1h, 2d nebo 1w.'
+  duration-short: 'Hlasování musí trvat alespoň <min>.'
+  duration-long: 'Hlasování může trvat nejvýše <max>.'
+
+manage:
+  ended: '<prefix> <green>Hlasování <white>#<id></white> bylo ukončeno.'
+  cancelled: '<prefix> <green>Hlasování <white>#<id></white> bylo zrušeno. Výsledky se nezveřejní.'
+  deleted: '<prefix> <green>Hlasování <white>#<id></white> bylo smazáno i s hlasy.'
+  extended: '<prefix> <green>Hlasování <white>#<id></white> nyní končí za <white><time></white>.'
+  extend-failed: '<prefix> <red>Konec hlasování <white>#<id></white> nelze změnit.'
+  opened: '<prefix> <green>Hlasovací menu otevřeno <white><count></white> hráčům.'
+  webhook-queued: '<prefix> <green>Výsledky hlasování <white>#<id></white> se odesílají na Discord.'
+  webhook-off: '<prefix> <red>Discord je vypnutý nebo je neplatná adresa webhooku (viz config.yml, sekce discord).'
+  webhook-not-ended: '<prefix> <red>Na Discord lze poslat jen skončená hlasování.'
+  webhook-test-ok: '<prefix> <green>Zkušební zpráva byla doručena na Discord.'
+  webhook-test-fail: '<prefix> <red>Discord zkušební zprávu nepřijal. Podrobnosti jsou v konzoli serveru.'
+  webhook-sent: '<prefix> <green>Výsledky hlasování <white>#<id></white> byly doručeny na Discord.'
+  webhook-failed: '<prefix> <red>Výsledky hlasování <white>#<id></white> se nepodařilo doručit na Discord (podrobnosti v konzoli). Zkus to znovu: <white>/<label> webhook <id></white>.'
+
+autoopen:
+  enabled: '<prefix> <green>Hlasovací menu se ti bude otevírat automaticky, když na tebe čeká hlasování.'
+  disabled: '<prefix> <yellow>Hlasovací menu se už samo neotevře. Hlasovat můžeš přes <white>/<label></white>.'
+
+gui:
+  close: '<gray>Zavřít'
+  back: '<gray>Zpět'
+  vote:
+    ends: '<gray>Končí za <white><time></white>'
+    you-voted: '<green>Hlasoval jsi pro: <white><option></white>'
+    can-change: '<gray>Svůj hlas můžeš ještě změnit.'
+    results-hidden: '<gray>Výsledky se zobrazí po skončení hlasování.'
+    option: '<white><option>'
+    option-current: '<green>✔ <white><option>'
+    option-tooltip: '<gray>Hlasovat pro <white><option></white>'
+    thanks: '<green>Díky za hlas!'
+    ended: '<gray>Toto hlasování skončilo.'
+  list:
+    title: '<gold>Hlasování'
+    body: '<gray>Vyber hlasování, ve kterém chceš hlasovat.'
+    entry: '<white><title> <gray>(zbývá <time>)'
+    entry-voted: '<green>✔ <white><title> <gray>(zbývá <time>)'
+    manage: '<aqua>Správa hlasování'
+  results:
+    title: '<gold>Výsledky'
+    total: '<gray>Celkem hlasů: <white><total>'
+    live: '<gray>Hlasování ještě běží, průběžné výsledky.'
+    final: '<gray>Konečný výsledek.'
+  history:
+    title: '<gold>Poslední hlasování'
+    entry: '<white><title> <gray>(<status><gray>)'
+  create:
+    title: '<gold>Nové hlasování'
+    field-title: '<white>Otázka'
+    field-description: '<gray>Popis (nepovinné)'
+    field-option: '<white>Možnost <n>'
+    field-option-required: '<white>Možnost <n> <red>*'
+    field-duration: '<white>Jak dlouho má hlasování trvat?'
+    field-custom-duration: '<gray>Vlastní doba (použije se jen při volbě "Vlastní" výše)'
+    custom: 'Vlastní...'
+    field-discord: '<white>Poslat výsledky na Discord'
+    field-auto-open: '<white>Automaticky otevřít menu hráčům'
+    submit: '<green>Vytvořit hlasování'
+    cancel: '<gray>Zrušit'
+    error: '<red>⚠ <error>'
+    hint: '<gray>Pole označená <red>*</red> jsou povinná. Každý hráč může hlasovat jen jednou.'
+  manage:
+    title: '<gold>Správa hlasování'
+    new: '<green>+ Nové hlasování'
+    empty: '<gray>Neběží ani není naplánováno žádné hlasování.'
+    entry: '<white>#<id> <title> <gray>(<status><gray>, <time>)'
+    history: '<gray>Skončená hlasování'
+  admin:
+    title: '<gold>Hlasování #<id>'
+    info:
+      - '<yellow><title>'
+      - '<gray>Stav: <status>'
+      - '<gray>Vytvořil: <white><creator>'
+      - '<gray>Čas: <white><time>'
+      - '<gray>Odevzdaných hlasů: <white><total>'
+      - '<gray>Discord: <white><discord>  <gray>Automatické otevření: <white><auto>'
+    value-yes: 'ano'
+    value-no: 'ne'
+    time-active: 'končí za <left>'
+    time-scheduled: 'začíná za <left>'
+    time-ended: 'skončilo'
+    results: '<aqua>Výsledky'
+    end: '<red>Ukončit hned'
+    cancel: '<red>Zrušit (bez výsledků)'
+    delete: '<dark_red>Smazat i s hlasy'
+    extend: '<white>+<time>'
+    shorten: '<white>-<time>'
+    open-all: '<aqua>Otevřít menu všem hráčům'
+    webhook: '<blue>Poslat na Discord'
+  confirm:
+    title: '<red>Opravdu?'
+    end: '<gray>Ukončit hlasování <white>#<id> <title></white> hned a zveřejnit výsledky?'
+    cancel: '<gray>Zrušit hlasování <white>#<id> <title></white>? Hlasy zůstanou uložené, ale výsledky se nezveřejní.'
+    delete: '<gray>Smazat hlasování <white>#<id> <title></white> i všechny hlasy? Nelze vrátit zpět.'
+    accept: '<green>Ano'
+    decline: '<gray>Ne, zpět'
+
+update:
+  available: '<prefix> <yellow>Je dostupná nová verze: <white><version></white> <click:open_url:''<url>''><aqua>[stáhnout]</aqua></click>'
+
+webhook:
+  total: 'Celkem hlasů'
+  winner: 'Vítěz'
+  duration: 'Délka hlasování'
+  tie: 'Remíza: {options}'
+  no-votes: 'Nikdo nehlasoval'
+  votes-one: '{n} hlas'
+  votes-few: '{n} hlasy'
+  votes-many: '{n} hlasů'
+  poll-id: 'Hlasování #{id}'
+  started: 'Nové hlasování: {title}'
+  options: 'Možnosti'
+  ends: 'Končí'
+  test: 'Webhook funguje. Výsledky hlasování se zobrazí tady.'

@@ -1,0 +1,37 @@
+[CENTER][SIZE=6][B]JustPolls[/B][/SIZE]
+Timed in-game polls with a clickable dialog menu, SQLite/MariaDB storage and Discord webhook results.[/CENTER]
+
+Run a vote for 10 minutes, an hour or a week. Players get a native click-to-vote menu, each player votes once, and when the time is up the results (percentages and totals, never who voted) go to chat and, optionally, to a Discord channel.
+
+[SIZE=5][B]Features[/B][/SIZE]
+[LIST]
+[*][B]Native menus[/B]: create, vote and manage in Minecraft's dialog screens (buttons, text fields, drop-downs). No inventory GUI.
+[*][B]Any duration[/B]: 30s, 10m, 1h, 1d12h, 7d, 2w. Schedule, extend or end polls early.
+[*][B]Auto-open[/B]: the voting menu opens after a poll starts, on join and as an optional reminder. Players can opt out.
+[*][B]One vote per player and poll[/B] (optionally changeable), stored under a salted hash.
+[*][B]Discord webhook[/B]: formatted embed with bars, percentages, vote counts, winner/tie, total and duration. Role ping, "poll started" message, retry on failure.
+[*][B]SQLite or MariaDB/MySQL[/B], fully asynchronous.
+[*][B]Polls in config.yml[/B] with a start date and optional repeat.
+[*]Results visibility: after voting / live / after the poll ends. Optional participation rewards.
+[*]English and Czech, all texts editable. Config updates itself.
+[/LIST]
+
+[SIZE=5][B]Commands & Permissions[/B][/SIZE]
+Base command [ICODE]/justpolls[/ICODE], aliases [ICODE]/poll[/ICODE], [ICODE]/polls[/ICODE].
+[LIST]
+[*][B]/justpolls[/B], [B]vote [id][/B] - open the voting menu (permission: [ICODE]justpolls.vote[/ICODE], default everyone)
+[*][B]list[/B], [B]history[/B], [B]results <id>[/B], [B]autoopen [on|off][/B] (permission: [ICODE]justpolls.use[/ICODE], default everyone)
+[*][B]create[/B], [B]quick <duration> <question> | <option> | <option>[/B] - create a poll (permission: [ICODE]justpolls.create[/ICODE], default OP)
+[*][B]manage[/B], [B]end[/B], [B]cancel[/B], [B]delete[/B], [B]extend[/B], [B]open[/B], [B]webhook[/B], [B]webhook-test[/B], [B]reload[/B] (permission: [ICODE]justpolls.admin[/ICODE], default OP)
+[/LIST]
+
+[SIZE=5][B]Setup[/B][/SIZE]
+[LIST=1]
+[*]Drop the jar into plugins/ (Paper, Minecraft 26.3, Java 25) and start the server. The first start downloads the database drivers.
+[*]Optional: set [ICODE]discord.enabled: true[/ICODE] and [ICODE]discord.webhook-url[/ICODE] in config.yml, then run [ICODE]/justpolls webhook-test[/ICODE].
+[*]Create a poll: [ICODE]/poll create[/ICODE] or [ICODE]/poll quick 1h Best season? | Summer | Winter[/ICODE].
+[/LIST]
+
+[SIZE=5][B]Support[/B][/SIZE]
+Issues: https://github.com/filasik/justPolls/issues
+The plugin is free. Donations are voluntary and give no in-game advantages.

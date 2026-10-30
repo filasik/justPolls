@@ -1,0 +1,26 @@
+name: Bug report
+description: Something does not work as expected
+labels: [bug]
+body:
+  - type: input
+    id: plugin-version
+    attributes: { label: Plugin version }
+    validations: { required: true }
+  - type: input
+    id: server
+    attributes:
+      label: Server software and version
+      description: Output of /version
+    validations: { required: true }
+  - type: textarea
+    id: what
+    attributes: { label: What happened? What did you expect? }
+    validations: { required: true }
+  - type: textarea
+    id: steps
+    attributes: { label: Steps to reproduce }
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / stack trace
+      description: Paste via https://mclo.gs and link it here
