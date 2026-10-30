@@ -36,7 +36,7 @@ public final class PollAnnouncer implements PollService.Events {
         Messages m = ctx.messages();
         List<Component> lines = m.list("announce.started", Messages.text("title", poll.title),
                 Messages.text("time", Durations.format(poll.endAt() - poll.startAt())),
-                Messages.text("id", Long.toString(poll.id)), Messages.text("label", ctx.plugin.commandLabel()));
+                Messages.arg("id", Long.toString(poll.id)), Messages.arg("label", ctx.plugin.commandLabel()));
         Sound sound = sound();
         ctx.scheduler.runGlobal(() -> {
             for (Player p : Bukkit.getOnlinePlayers()) {

@@ -122,6 +122,15 @@ public final class Messages {
         return Placeholder.unparsed(name, value);
     }
 
+    /**
+     * Placeholder for use INSIDE a tag argument, e.g. {@code <click:run_command:'/<label> vote <id>'>}. Unparsed
+     * placeholders are not substituted there (the click would run the literal text "/<label> vote <id>"). The value
+     * is stripped of characters that could end the argument or open a tag, so use it for commands, ids and URLs only.
+     */
+    public static TagResolver arg(String name, String value) {
+        return Placeholder.parsed(name, value.replaceAll("[<>'\"\\\\]", ""));
+    }
+
     public static TagResolver comp(String name, Component value) {
         return Placeholder.component(name, value);
     }

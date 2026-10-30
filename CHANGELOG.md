@@ -1,3 +1,6 @@
+## Unreleased
+- Fix: clickable chat links ([click to vote], [vote], [results]) ran the literal text `/<label> vote <id>`; the "new version" link had the same problem
+
 ## 1.0.0
 - First version: timed polls (seconds to weeks), created in a dialog menu, with `/justpolls quick` or from `config.yml`
 - Voting menu built on Minecraft's dialog screens; one vote per player and poll (optional vote change)

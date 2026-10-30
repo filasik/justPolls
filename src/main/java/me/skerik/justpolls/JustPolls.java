@@ -140,7 +140,7 @@ public final class JustPolls extends JavaPlugin implements Listener {
         if (u != null && u.newerVersion() != null && player.hasPermission("justpolls.admin")) {
             scheduler.runForEntity(player, () -> player.sendMessage(ctx.messages().get("update.available",
                     Messages.text("version", String.valueOf(u.newerVersion())),
-                    Messages.text("url", String.valueOf(u.url())))), null);
+                    Messages.arg("url", String.valueOf(u.url())))), null);
         }
     }
 

@@ -161,7 +161,7 @@ public final class MainCommand {
     }
 
     private TagResolver label() {
-        return Messages.text("label", plugin.commandLabel());
+        return Messages.arg("label", plugin.commandLabel());
     }
 
     // --- commands --------------------------------------------------------------------------------------------------
@@ -187,7 +187,7 @@ public final class MainCommand {
             boolean voted = sender instanceof Player pl && ctx.polls.hasVoted(p, pl.getUniqueId());
             String key = p.status() == PollStatus.SCHEDULED ? "poll.list-scheduled" : voted ? "poll.list-line-voted" : "poll.list-line";
             long until = p.status() == PollStatus.SCHEDULED ? p.startAt() - now : p.endAt() - now;
-            sender.sendMessage(m.get(key, Messages.text("id", Long.toString(p.id)), Messages.text("title", p.title),
+            sender.sendMessage(m.get(key, Messages.arg("id", Long.toString(p.id)), Messages.text("title", p.title),
                     Messages.text("time", Durations.format(until)), label()));
         }
     }
@@ -201,7 +201,7 @@ public final class MainCommand {
             }
             sender.sendMessage(m.get("poll.history-header"));
             for (Poll p : polls) {
-                sender.sendMessage(m.get("poll.history-line", Messages.text("id", Long.toString(p.id)),
+                sender.sendMessage(m.get("poll.history-line", Messages.arg("id", Long.toString(p.id)),
                         Messages.text("title", p.title), Messages.comp("status", ResultView.status(m, p)), label()));
             }
         });
