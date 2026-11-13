@@ -1,3 +1,6 @@
+## 1.0.2
+- bStats anonymous statistics are now active (plugin id 35312); charts: language and storage type. Opt out with `metrics: false` in `config.yml` or globally in `plugins/bStats/config.yml`
+
 ## 1.0.1
 - Fix: clickable chat links ([click to vote], [vote], [results]) ran the literal text `/<label> vote <id>`; the "new version" link had the same problem
 
