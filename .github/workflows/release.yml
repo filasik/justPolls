@@ -18,12 +18,17 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
       - name: Smoke test (čistý Paper server)
         run: ./scripts/smoke-test.sh
+      - name: Release notes (this version only)
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          awk -v v="$VERSION" '$0=="## "v{f=1;next} /^## /{f=0} f' CHANGELOG.md > notes.md
+          test -s notes.md
       - name: GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           files: build/libs/*.jar
           fail_on_unmatched_files: true
-          body_path: CHANGELOG.md
+          body_path: notes.md
       - name: Modrinth
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}

@@ -93,6 +93,13 @@ tasks.runServer {
     }
 }
 
+// Changelog text of the current version only (the "## <version>" section of CHANGELOG.md)
+val releaseNotes: Provider<String> = providers.fileContents(layout.projectDirectory.file("CHANGELOG.md")).asText.map { text ->
+    val header = "## " + project.version
+    val section = text.lineSequence().dropWhile { it.trim() != header }.drop(1).takeWhile { !it.startsWith("## ") }.joinToString("\n").trim()
+    section.ifEmpty { throw GradleException("CHANGELOG.md has no section '" + header + "'") }
+}
+
 modrinth {
     token = System.getenv("MODRINTH_TOKEN")
     projectId = project.property("modrinthId") as String
@@ -101,7 +108,7 @@ modrinth {
     uploadFile.set(tasks.shadowJar)
     gameVersions.addAll(project.property("minecraftVersion") as String)
     loaders.addAll("paper", "purpur", "folia")
-    changelog = providers.fileContents(layout.projectDirectory.file("CHANGELOG.md")).asText
+    changelog = releaseNotes
     syncBodyFrom = providers.fileContents(layout.projectDirectory.file("docs/modrinth.md")).asText
 }
 
@@ -111,7 +118,7 @@ hangarPublish {
         id = project.property("hangarSlug") as String
         version = project.version as String
         channel = "Release"
-        changelog = providers.fileContents(layout.projectDirectory.file("CHANGELOG.md")).asText
+        changelog = releaseNotes
         apiKey = System.getenv("HANGAR_API_KEY")
         platforms {
             register(io.papermc.hangarpublishplugin.model.Platforms.PAPER) {
