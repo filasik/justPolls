@@ -1,0 +1,1 @@
+JustPolls is MIT licensed · [GitHub](https://github.com/filasik/justPolls) · [Releases](https://github.com/filasik/justPolls/releases) · [Report a bug](https://github.com/filasik/justPolls/issues) · [Security policy](https://github.com/filasik/justPolls/security/policy)

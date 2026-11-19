@@ -1,0 +1,32 @@
+name: Wiki
+
+# Publishes docs/wiki/*.md to the GitHub wiki of this repository.
+# The wiki must exist first: create any page once in the GitHub UI (Wiki tab > Create the first page).
+
+on:
+  push:
+    branches: [main]
+    paths: ['docs/wiki/**']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Push docs/wiki/ to the wiki repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git clone "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.wiki.git" wiki-repo
+          rsync -a --delete --exclude .git --exclude README.md docs/wiki/ wiki-repo/
+          cd wiki-repo
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then echo "Wiki is up to date"; exit 0; fi
+          git commit -m "Sync wiki from ${GITHUB_SHA::7}"
+          git push
