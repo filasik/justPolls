@@ -2,6 +2,10 @@
 
 Timed in-game polls with a clickable dialog menu, SQLite/MariaDB storage and Discord webhook results.
 
+<p align="center"><a href="https://skerik.me/plugin"><img src="docs/assets/justfamily.png" width="128" alt="just plugins family"></a></p>
+
+> Part of the **[just plugins family](https://skerik.me/plugin)**: a collection of Paper plugins (JustLogin, JustAuction, JustPolls, JustLogs and AI Friend). Find them all at [skerik.me/plugin](https://skerik.me/plugin).
+
 Staff create a poll (10 minutes, an hour, a week, ...) in a menu or from `config.yml`. Players get the voting menu
 popping up by themselves, click an answer and that is it: **one vote per player and poll**. When time is up the
 results (percentages and totals, never who voted) are announced in chat and, if you want, posted to a Discord channel.
